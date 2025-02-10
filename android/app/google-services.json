@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1033028471446",
+    "project_id": "autism-app-keerthana",
+    "storage_bucket": "autism-app-keerthana.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033028471446:android:463bec2b1db84a57ead0b7",
+        "android_client_info": {
+          "package_name": "com.example.autism_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzNMJ1CjGpF1211YfgdqJ1pQg7UVYmn_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
