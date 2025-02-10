@@ -133,9 +133,13 @@
 //   }
 // }
 
+// 
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:autism_app/services/auth_service.dart';  // Import your AuthService
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dashboard_screen.dart';
+import 'child_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -143,26 +147,30 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AuthService authService = AuthService(); // Initialize AuthService
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // Login function
-  void loginUser() async {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
+  Future<void> login() async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-    if (email.isEmpty || password.isEmpty) {
-      print("⚠️ Please enter email & password");
-      return;
-    }
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(userCredential.user!.uid).get();
+      String role = userDoc['role'];
 
-    User? user = await authService.signIn(email, password);
-    if (user != null) {
-      print("🎉 Logged in as: ${user.email}");
-      Navigator.pushReplacementNamed(context, "/home"); // Navigate to home screen
-    } else {
-      print("❌ Login failed");
+      if (role == 'child') {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChildDashboard()));
+      } else {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
     }
   }
 
@@ -173,22 +181,26 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               controller: emailController,
               decoration: InputDecoration(labelText: "Email"),
             ),
-            SizedBox(height: 10),
             TextField(
               controller: passwordController,
-              obscureText: true,
               decoration: InputDecoration(labelText: "Password"),
+              obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: loginUser,  // Call loginUser() when button is pressed
+              onPressed: login,
               child: Text("Login"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+              },
+              child: Text("Don't have an account? Sign up"),
             ),
           ],
         ),

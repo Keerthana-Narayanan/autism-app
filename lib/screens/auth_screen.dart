@@ -3,7 +3,6 @@
 // import '../services/auth_service.dart';
 // import 'home_screen.dart'; // Home screen after login
 
-
 // class AuthScreen extends StatefulWidget {
 //   @override
 //   _AuthScreenState createState() => _AuthScreenState();
@@ -63,7 +62,7 @@
 
 // import 'package:flutter/material.dart';
 // import '../services/auth_service.dart';
-// import 'home_screen.dart'; 
+// import 'home_screen.dart';
 
 // class AuthScreen extends StatefulWidget {
 //   @override
@@ -74,7 +73,7 @@
 //   final AuthService _authService = AuthService();
 //   final TextEditingController emailController = TextEditingController();
 //   final TextEditingController passwordController = TextEditingController();
-//   bool isLogin = true; 
+//   bool isLogin = true;
 
 //   void authenticate() async {
 //     String email = emailController.text.trim();
@@ -138,7 +137,7 @@
 
 // import 'package:flutter/material.dart';
 // import '../services/auth_service.dart';
-// import 'home_screen.dart'; 
+// import 'home_screen.dart';
 
 // class AuthScreen extends StatefulWidget {
 //   @override
@@ -149,7 +148,7 @@
 //   final AuthService _authService = AuthService();
 //   final TextEditingController emailController = TextEditingController();
 //   final TextEditingController passwordController = TextEditingController();
-//   bool isLogin = true; 
+//   bool isLogin = true;
 
 //   void authenticate() async {
 //     String email = emailController.text.trim();
@@ -210,7 +209,6 @@
 //     );
 //   }
 // }
-
 
 // import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -263,7 +261,8 @@
 //       screen = TherapistDashboard();
 //     }
 
-//     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => screen));
+//     Navigator.pushReplacement(
+//         context, MaterialPageRoute(builder: (context) => screen));
 //   }
 
 //   @override
@@ -274,23 +273,31 @@
 //         padding: EdgeInsets.all(16.0),
 //         child: Column(
 //           children: [
-//             TextField(controller: emailController, decoration: InputDecoration(labelText: 'Email')),
-//             TextField(controller: passwordController, decoration: InputDecoration(labelText: 'Password'), obscureText: true),
-            
+//             TextField(
+//                 controller: emailController,
+//                 decoration: InputDecoration(labelText: 'Email')),
+//             TextField(
+//                 controller: passwordController,
+//                 decoration: InputDecoration(labelText: 'Password'),
+//                 obscureText: true),
 //             if (!isLogin)
 //               DropdownButton<String>(
 //                 value: selectedRole,
 //                 onChanged: (value) => setState(() => selectedRole = value!),
 //                 items: ["parent", "child", "therapist"].map((role) {
-//                   return DropdownMenuItem(value: role, child: Text(role.toUpperCase()));
+//                   return DropdownMenuItem(
+//                       value: role, child: Text(role.toUpperCase()));
 //                 }).toList(),
 //               ),
-
 //             SizedBox(height: 20),
-//             ElevatedButton(onPressed: authenticate, child: Text(isLogin ? 'Login' : 'Sign Up')),
+//             ElevatedButton(
+//                 onPressed: authenticate,
+//                 child: Text(isLogin ? 'Login' : 'Sign Up')),
 //             TextButton(
 //               onPressed: () => setState(() => isLogin = !isLogin),
-//               child: Text(isLogin ? 'Create Account' : 'Already have an account? Login'),
+//               child: Text(isLogin
+//                   ? 'Create Account'
+//                   : 'Already have an account? Login'),
 //             ),
 //           ],
 //         ),
@@ -400,41 +407,43 @@
 // }
 
 
-import 'package:flutter/material.dart';
-import 'package:autism_app/services/auth_service.dart';
-import 'package:autism_app/screens/home_screen.dart';
-import 'package:autism_app/screens/login_screen.dart';
-import 'package:autism_app/screens/dashboard_screen.dart';
-import 'package:autism_app/screens/child_dashboard.dart';
+// import 'package:flutter/material.dart';
+// import 'package:autism_app/services/auth_service.dart';
+// import 'package:autism_app/screens/home_screen.dart';
+// import 'package:autism_app/screens/login_screen.dart';
+// import 'package:autism_app/screens/dashboard_screen.dart';
+// import 'package:autism_app/screens/child_dashboard.dart';
 
-class AuthCheck extends StatefulWidget {
-  @override
-  _AuthCheckState createState() => _AuthCheckState();
-}
+// class AuthCheck extends StatefulWidget {
+//   @override
+//   _AuthCheckState createState() => _AuthCheckState();
+// }
 
-class _AuthCheckState extends State<AuthCheck> {
-  final AuthService _authService = AuthService();
+// class _AuthCheckState extends State<AuthCheck> {
+//   final AuthService _authService = AuthService();
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<String?>(
-      future: _authService.getUserRole("user_id"), // Ensure correct argument
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
-        } else if (snapshot.hasData && snapshot.data != null) {
-          String role = snapshot.data!;
-          if (role == "parent") {
-            return DashboardScreen();
-          } else if (role == "child") {
-            return ChildDashboard();
-          } else {
-            return HomeScreen(); // Default fallback
-          }
-        } else {
-          return LoginScreen();
-        }
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder<String?>(
+//       future: _authService.getUserRole("user_id"), // Ensure correct argument
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return Scaffold(body: Center(child: CircularProgressIndicator()));
+//         } else if (snapshot.hasData && snapshot.data != null) {
+//           String role = snapshot.data!;
+//           if (role == "parent") {
+//             return DashboardScreen();
+//           } else if (role == "child") {
+//             return ChildDashboard();
+//           } else {
+//             return HomeScreen(); // Default fallback
+//           }
+//         } else {
+//           return LoginScreen();
+//         }
+//       },
+//     );
+//   }
+// }
+
+

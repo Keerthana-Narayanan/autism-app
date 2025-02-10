@@ -190,39 +190,75 @@
 //   }
 // }
 
+// import 'package:flutter/material.dart';
+
+// class HomeScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Autism Development App"),
+//         backgroundColor: Colors.blueAccent,
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             _buildNavButton(context, "Dashboard", "/dashboard"),
+//             _buildNavButton(context, "Child Dashboard", "/child_dashboard"),
+//             _buildNavButton(context, "Tasks", "/tasks"),
+//             _buildNavButton(context, "Games", "/games"),
+//             _buildNavButton(context, "AAC Communication", "/aac"),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildNavButton(BuildContext context, String title, String route) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 8.0),
+//       child: ElevatedButton(
+//         onPressed: () {
+//           Navigator.pushNamed(context, route);
+//         },
+//         child: Text(title, style: TextStyle(fontSize: 18)),
+//       ),
+//     );
+//   }
+// }
+
+
 import 'package:flutter/material.dart';
+import 'login_screen.dart';
+import 'signup_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Autism Development App"),
-        backgroundColor: Colors.blueAccent,
-      ),
+      appBar: AppBar(title: Text("Autism Development App")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildNavButton(context, "Dashboard", "/dashboard"),
-            _buildNavButton(context, "Child Dashboard", "/child_dashboard"),
-            _buildNavButton(context, "Tasks", "/tasks"),
-            _buildNavButton(context, "Games", "/games"),
-            _buildNavButton(context, "AAC Communication", "/aac"),
+            Text("Welcome!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/login");
+              },
+              child: Text("Login"),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/signup");
+              },
+              child: Text("Sign Up"),
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildNavButton(BuildContext context, String title, String route) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.pushNamed(context, route);
-        },
-        child: Text(title, style: TextStyle(fontSize: 18)),
       ),
     );
   }
